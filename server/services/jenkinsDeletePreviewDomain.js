@@ -1,5 +1,6 @@
 import axios from "axios";
 import configurationService from "./configurationService.js";
+import { jenkinsAuth, jenkinsPostHeaders } from "./jenkinsClient.js";
 
 function trimBase(url) {
   return String(url || "").replace(/\/+$/, "");
@@ -41,13 +42,13 @@ export async function deletePreviewDomainViaJenkins(DOMAIN_NAME) {
   );
   try {
     const response = await axios.post(
-      `${jenkinsUrl}?token=domain&DOMAIN_NAME=${DOMAIN_NAME}`,
+      `${jenkinsUrl}?DOMAIN_NAME=${DOMAIN_NAME}`,
       null,
       {
-        headers: {
+        auth: jenkinsAuth(config),
+        headers: await jenkinsPostHeaders(config, {
           "Content-Type": "application/json",
-          Authorization: `Basic ${Buffer.from(`${config.user}:${config.password}`).toString("base64")}`,
-        },
+        }),
         timeout: 30000,
       },
     );

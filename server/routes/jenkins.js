@@ -6,6 +6,7 @@ import { Node, NodeBuild } from "../models/index.js";
 import { deletePreviewDomainViaJenkins } from "../services/jenkinsDeletePreviewDomain.js";
 import { refreshStatsAfterMutation } from "../services/statsService.js";
 import configurationService from "../services/configurationService.js";
+import { jenkinsAuth, jenkinsPostHeaders } from "../services/jenkinsClient.js";
 
 /** Must match Jenkins job `parameters { string… }` — only these are sent to buildWithParameters. */
 const JENKINS_PREVIEW_JOB_PARAM_NAMES = [
@@ -434,13 +435,10 @@ async function handleUnifiedPreviewBuild(req, res) {
     });
 
     const triggerResp = await axios.post(triggerUrl, jenkinsForm.toString(), {
-      auth: {
-        username: config.user,
-        password: config.password,
-      },
-      headers: {
+      auth: jenkinsAuth(config),
+      headers: await jenkinsPostHeaders(config, {
         "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-      },
+      }),
       timeout: 120_000,
       maxBodyLength: Infinity,
       maxContentLength: Infinity,
