@@ -1,11 +1,11 @@
-# Preview Viewer
+# Preview Branch Deployer
 
-Preview Viewer is a full-stack internal tool for managing preview environments.  
+Preview Branch Deployer is a full-stack internal tool for managing preview environments.  
 It provides a React frontend and an Express backend to manage projects, nodes, environment variables, and Jenkins preview jobs from one interface.
 
 ## What the app does
 
-Preview Viewer helps teams:
+Preview Branch Deployer helps teams:
 
 - Manage project and node configuration in a central UI
 - Trigger preview builds/jobs through Jenkins
