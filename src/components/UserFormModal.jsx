@@ -80,35 +80,6 @@ const UserFormModal = ({
         >
           <Row gutter={16}>
             <Col span={24}>
-              {/* <Form.Item
-                name="username"
-                label={
-                  <span className="text-gray-700 font-medium">
-                    Username
-                  </span>
-                }
-                rules={[
-                  { 
-                    required: true, 
-                    message: 'Please enter a username' 
-                  },
-                  { 
-                    min: 3, 
-                    message: 'Username must be at least 3 characters' 
-                  },
-                  {
-                    pattern: /^[a-zA-Z0-9_.-]+$/,
-                    message: 'Username can only contain letters, numbers, dots, hyphens, and underscores'
-                  }
-                ]}
-              >
-                <Input
-                  prefix={<UserOutlined className="text-gray-400" />}
-                  placeholder="Enter username"
-                  size="large"
-                  className="rounded-lg"
-                />
-              </Form.Item> */}
             </Col>
           </Row>
 

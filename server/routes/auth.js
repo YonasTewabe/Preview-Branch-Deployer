@@ -1,6 +1,5 @@
 import express from "express";
 import bcrypt from "bcrypt";
-import { Op } from "sequelize";
 import { User } from "../models/index.js";
 import rateLimit from "express-rate-limit";
 import { body, validationResult } from "express-validator";
@@ -23,26 +22,20 @@ const forgotPasswordLimiter = rateLimit({
 // POST /api/auth/login - User login
 router.post("/login", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
-    
-    if (!username || !password) {
-      return res.status(400).json({ error: "Username and password are required" });
+    if (!email || !password) {
+      return res.status(400).json({ error: "Email and password are required" });
     }
 
-    // Find user by username or email
+    // Find user by email only
     const user = await User.findOne({ 
-      where: { 
-        [Op.or]: [
-          { username: username.toLowerCase() },
-          { email: username.toLowerCase() }
-        ]
-      },
-      attributes: ['id', 'username', 'email', 'name', 'role', 'status', 'password', 'last_login']
+      where: { email: email.toLowerCase() },
+      attributes: ['id', 'email', 'name', 'role', 'status', 'password', 'last_login']
     });
 
     if (!user) {
-      return res.status(401).json({ error: "Invalid username or password" });
+      return res.status(401).json({ error: "Invalid email or password" });
     }
 
     // Check if user is active (case-insensitive)
@@ -53,7 +46,7 @@ router.post("/login", async (req, res) => {
     // Verify password using bcrypt
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ error: "Invalid username or password" });
+      return res.status(401).json({ error: "Invalid email or password" });
     }
 
     // Update last login
@@ -62,7 +55,6 @@ router.post("/login", async (req, res) => {
     // Create response without password
     const userResponse = {
       id: user.id,
-      username: user.username,
       email: user.email,
       name: user.name,
       role: user.role,
@@ -118,7 +110,7 @@ router.get("/me", async (req, res) => {
       return res.status(401).json({ error: "Invalid token" });
     }
     const user = await User.findByPk(userId, {
-      attributes: ['id', 'username', 'email', 'name', 'role', 'status', 'last_login']
+      attributes: ['id', 'email', 'name', 'role', 'status', 'last_login']
     });
 
     if (!user || user.status !== 'active') {

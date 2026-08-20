@@ -1,5 +1,5 @@
 import { testConnection, syncDatabase, User } from '../models/index.js';
-import { Op } from 'sequelize';
+
 
 const initializeDatabase = async () => {
   // Test connection
@@ -15,17 +15,11 @@ const initializeDatabase = async () => {
     
     // Create admin user if not exists
     const existingAdmin = await User.findOne({ 
-      where: { 
-        [Op.or]: [
-          { username: 'admin' },
-          { email: 'admin@example.com' }
-        ]
-      } 
+      where: { email: 'admin@example.com' }
     });
     
     if (!existingAdmin) {
       await User.create({
-        username: 'admin',
         email: 'admin@example.com',
         name: 'Admin',
         role: 'admin',
@@ -37,17 +31,11 @@ const initializeDatabase = async () => {
 
     // Create regular user if not exists
     const existingUser = await User.findOne({
-      where: {
-        [Op.or]: [
-          { username: 'user' },
-          { email: 'user@example.com' }
-        ]
-      }
+      where: { email: 'user@example.com' }
     });
 
     if (!existingUser) {
       await User.create({
-        username: 'user',
         email: 'user@example.com',
         name: 'User',
         role: 'user',

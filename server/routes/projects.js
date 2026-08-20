@@ -292,7 +292,7 @@ const projectDetailIncludes = [
   {
     model: User,
     as: "creator",
-    attributes: ["id", "username", "email", "name"],
+    attributes: ["id", "email", "name"],
   },
   {
     model: ProjectEnvProfile,
@@ -325,7 +325,7 @@ async function listTrashedProjectsHandler(_req, res) {
         {
           model: User,
           as: "creator",
-          attributes: ["id", "username", "email", "name"],
+          attributes: ["id", "email", "name"],
         },
       ],
       order: [["updated_at", "DESC"]],
@@ -365,7 +365,6 @@ router.get("/", async (req, res) => {
               as: "creator",
               attributes: [
                 "id",
-                "username",
                 "email",
                 "name",
               ],
@@ -425,7 +424,6 @@ router.get("/:id", async (req, res) => {
               as: "creator",
               attributes: [
                 "id",
-                "username",
                 "email",
                 "name",
               ],

@@ -44,17 +44,12 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = async (username, password) => {
+  const login = async (email, password) => {
     try {
-      // Convert email to username if it's an email format
-      const loginUsername = username.includes("@")
-        ? username.split("@")[0]
-        : username;
-
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}auth/login`,
         {
-          username: loginUsername,
+          email,
           password,
         },
       );

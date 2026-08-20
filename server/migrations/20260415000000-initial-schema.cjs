@@ -11,7 +11,6 @@ module.exports = {
         defaultValue: Sequelize.UUIDV4,
       },
       name: { type: Sequelize.STRING(200), allowNull: false },      email: { type: Sequelize.STRING(255), allowNull: false, unique: true },
-      username: { type: Sequelize.STRING(255), allowNull: true },
       password: { type: Sequelize.STRING(255), allowNull: false },
       role: {
         type: Sequelize.ENUM("admin", "user", "manager"),

@@ -18,7 +18,6 @@ router.post("/test", async (req, res) => {
       id: 999,
       email: email,
       name: "Test User",
-      username: "testuser",
       role: "Viewer"
     };
 

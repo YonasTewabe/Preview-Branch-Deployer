@@ -54,7 +54,6 @@ const UserManagement = () => {
       const name = (u.name ?? "").toLowerCase();
       return (
         name.includes(q) ||
-        (u.username && String(u.username).toLowerCase().includes(q)) ||
         (u.email && String(u.email).toLowerCase().includes(q))
       );
     });
@@ -137,24 +136,15 @@ const UserManagement = () => {
   // Table columns configuration
   const columns = [
     {
-      title: "Username",
-      dataIndex: "username",
-      key: "username",
-      sorter: (a, b) => a.username.localeCompare(b.username),
-      render: (text) => (
-        <div className="flex items-center">
-          <UserOutlined className="mr-2 text-gray-400" />
-          <span className="font-medium">{text}</span>
-        </div>
-      ),
-    },
-    {
       title: "Name",
       dataIndex: "name",
       key: "name",
       sorter: (a, b) => (a.name ?? "").localeCompare(b.name ?? ""),
       render: (name) => (
-        <span className="font-medium">{name}</span>
+        <div className="flex items-center">
+          <UserOutlined className="mr-2 text-gray-400" />
+          <span className="font-medium">{name}</span>
+        </div>
       ),
     },
     {
@@ -264,7 +254,7 @@ const UserManagement = () => {
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <div className="flex w-full flex-1 gap-2 sm:w-auto">
             <Search
-              placeholder="Search by username, name, or email"
+              placeholder="Search by name or email"
               allowClear
               size="large"
               className="flex-1 max-w-xl"

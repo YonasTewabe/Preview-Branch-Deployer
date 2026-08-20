@@ -15,7 +15,6 @@ const Profile = () => {
   useEffect(() => {
     if (!user) return;
     infoForm.setFieldsValue({
-      username: user.username ?? "",
       email: user.email ?? "",
       name: user.name ?? "",
     });
@@ -26,7 +25,6 @@ const Profile = () => {
     updateUserMutation.mutate(
       {
         id: user.id,
-        username: values.username,
         email: values.email,
         name: values.name,
         role: user.role,
@@ -69,9 +67,6 @@ const Profile = () => {
           onFinish={handleSaveInfo}
           className="mt-2"
         >
-          <Form.Item label="Username" name="username">
-            <Input size="large" />
-          </Form.Item>
           <Form.Item
             label="Email"
             name="email"

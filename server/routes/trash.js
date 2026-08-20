@@ -17,7 +17,7 @@ router.get("/nodes", async (_req, res) => {
         {
           model: User,
           as: "creator",
-          attributes: ["id", "username", "email"],
+          attributes: ["id", "email"],
           required: false,
         },
       ],

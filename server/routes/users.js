@@ -48,9 +48,8 @@ router.post("/", authenticateToken, isAdmin, async (req, res) => {
     if (role && role !== 'admin' && role !== 'user') {
       return res.status(400).json({ error: "Invalid role. Must be 'admin' or 'user'" });
     }
-    const username = email.split('@')[0];
-    if (!username || !email) {
-      return res.status(400).json({ error: "Username and email are required" });
+    if (!email) {
+      return res.status(400).json({ error: "Email is required" });
     }
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
@@ -59,11 +58,10 @@ router.post("/", authenticateToken, isAdmin, async (req, res) => {
     const password = Math.random().toString(36).substring(2, 8);
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
-      username,
       email,
       name,
       role: role || "user",
-      status: 'active', // Default status for new users
+      status: 'active',
       password: hashedPassword,
     });
 
@@ -89,7 +87,7 @@ router.post("/", authenticateToken, isAdmin, async (req, res) => {
   } catch (error) {
     console.error("Error creating user:", error);
     if (error.name === 'SequelizeUniqueConstraintError') {
-      return res.status(400).json({ error: "Username or email already exists" });
+      return res.status(400).json({ error: "Email already exists" });
     }
     if (error.name === 'SequelizeValidationError') {
       return res.status(400).json({ error: error.errors[0].message });
@@ -101,7 +99,7 @@ router.post("/", authenticateToken, isAdmin, async (req, res) => {
 // PUT /api/users/:id - Update a user
 router.put("/:id", authenticateToken, async (req, res) => {
   try {
-    const { username, email, name, role, status } = req.body;
+    const { email, name, role, status } = req.body;
     
     const user = await User.findByPk(req.params.id);
     if (!user) {
@@ -113,7 +111,6 @@ router.put("/:id", authenticateToken, async (req, res) => {
     }
 
     const updateData = {
-      username,
       email,
       name,
     };
@@ -140,7 +137,7 @@ router.put("/:id", authenticateToken, async (req, res) => {
   } catch (error) {
     console.error("Error updating user:", error);
     if (error.name === 'SequelizeUniqueConstraintError') {
-      return res.status(400).json({ error: "Username or email already exists" });
+      return res.status(400).json({ error: "Email already exists" });
     }
     if (error.name === 'SequelizeValidationError') {
       return res.status(400).json({ error: error.errors[0].message });

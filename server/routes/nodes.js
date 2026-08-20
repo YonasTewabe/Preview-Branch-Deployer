@@ -34,7 +34,7 @@ function includeProjectAndCreator() {
     {
       model: User,
       as: "creator",
-      attributes: ["id", "username", "email"],
+      attributes: ["id", "email"],
     },
   ];
 }

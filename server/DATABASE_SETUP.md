@@ -46,7 +46,6 @@ This will:
 
 ### 1. Users Table
 - `id` (Primary Key)
-- `username` (Unique)
 - `email` (Unique)
 - `name`
 - `role` (admin, developer, viewer)
@@ -152,10 +151,9 @@ The existing JSON-based routes (`/api/backendnodes`) will continue to work. To u
 ```javascript
 POST /api/users
 {
-  "username": "john_doe",
   "email": "john@example.com",
   "name": "John Doe",
-  "role": "developer"
+  "role": "user"
 }
 ```
 

@@ -14,14 +14,13 @@ module.exports = {
 
     // Check if admin user already exists
     const [existingAdmin] = await queryInterface.sequelize.query(
-      `SELECT id FROM users WHERE username = 'admin' OR email = 'admin@example.com' LIMIT 1;`
+      `SELECT id FROM users WHERE email = 'admin@example.com' LIMIT 1;`
     );
 
     if (!existingAdmin || existingAdmin.length === 0) {
       // Create admin user
       await queryInterface.bulkInsert('users', [{
         id: uuidv4(),
-        username: 'admin',
         name: 'Admin',
         email: 'admin@example.com',
         password: hashedPassword,
@@ -40,14 +39,13 @@ module.exports = {
 
     // Check if regular user already exists
     const [existingUser] = await queryInterface.sequelize.query(
-      `SELECT id FROM users WHERE username = 'user' OR email = 'user@example.com' LIMIT 1;`
+      `SELECT id FROM users WHERE email = 'user@example.com' LIMIT 1;`
     );
 
     if (!existingUser || existingUser.length === 0) {
       // Create regular user
       await queryInterface.bulkInsert('users', [{
         id: uuidv4(),
-        username: 'user',
         name: 'User',
         email: 'user@example.com',
         password: hashedPassword,

@@ -24,7 +24,7 @@ const Login = () => {
     setError("");
 
     try {
-      const result = await login(values.username, values.password);
+      const result = await login(values.email, values.password);
 
       if (result.success) {
         // Redirect to home page
@@ -99,37 +99,22 @@ const Login = () => {
             className="space-y-4"
           >
             <Form.Item
-              label="Email or Username"
-              name="username"
+              label="Email"
+              name="email"
               className="mb-4"
               rules={[
                 {
                   required: true,
-                  message: "Please input your email or username!",
+                  message: "Please input your email!",
                 },
                 {
-                  validator: (_, value) => {
-                    if (!value) {
-                      return Promise.reject();
-                    }
-                    // Accept if it's a valid email OR if it's a username (no @ symbol)
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    const usernameRegex = /^[a-zA-Z0-9_.-]{3,}$/;
-
-                    if (emailRegex.test(value) || usernameRegex.test(value)) {
-                      return Promise.resolve();
-                    }
-                    return Promise.reject(
-                      new Error(
-                        "Please enter a valid email or username (min 3 characters, letters, numbers, _, -, . only)",
-                      ),
-                    );
-                  },
+                  type: "email",
+                  message: "Please enter a valid email address",
                 },
               ]}
             >
               <Input
-                placeholder="Enter your email or username"
+                placeholder="Enter your email"
                 className="h-12 rounded-lg"
                 style={{ fontSize: "16px" }}
               />
