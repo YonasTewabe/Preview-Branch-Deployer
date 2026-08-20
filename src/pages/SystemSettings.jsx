@@ -153,8 +153,14 @@ const githubFields = [
 const systemFields = [
   {
     key: "stale_preview_node_days",
-    label: "Remove preview node after days",
+    label: "Move preview node to trash after days",
     placeholder: "5",
+    secret: false,
+  },
+  {
+    key: "trash_retention_days",
+    label: "Permanently delete nodes & projects from trash after days",
+    placeholder: "Leave empty to never auto-delete",
     secret: false,
   },
 ];

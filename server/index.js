@@ -19,6 +19,7 @@ import trashRoutes from "./routes/trash.js";
 import { testConnection } from "./config/database.js";
 import { initAssociations, syncDatabase } from "./models/index.js";
 import { scheduleStalePreviewNodeCleanup } from "./jobs/stalePreviewNodeCleanup.js";
+import { scheduleTrashCleanup } from "./jobs/trashCleanup.js";
 
 dotenv.config();
 const app = express();
@@ -87,6 +88,7 @@ const startServer = async () => {
     app.listen(PORT, () => {
       console.warn(`🚀 Server is running on port ${PORT}`);
       scheduleStalePreviewNodeCleanup();
+      scheduleTrashCleanup();
     });
   } catch (error) {
     console.error("❌ Startup failed:", error.message);

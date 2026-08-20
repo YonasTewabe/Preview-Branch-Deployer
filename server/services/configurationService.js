@@ -65,6 +65,13 @@ const DEFINITIONS = {
     required: true,
     defaultValue: "5",
   },
+  trash_retention_days: {
+    category: "system",
+    isSecret: false,
+    envFallback: "TRASH_RETENTION_DAYS",
+    required: false,
+    defaultValue: "",
+  },
 };
 
 function normalizeValue(v) {
@@ -172,15 +179,24 @@ async function getGitHubConfig() {
 }
 
 async function getSystemConfig() {
-  const keys = Object.keys(DEFINITIONS).filter((k) => k.startsWith("stale_"));
+  const keys = Object.keys(DEFINITIONS).filter(
+    (k) => k.startsWith("stale_") || k.startsWith("trash_"),
+  );
   const dbMap = await loadKeys(keys);
   const stalePreviewNodeDays = Math.max(
     1,
     Number.parseInt(valueWithFallback("stale_preview_node_days", dbMap), 10) || 5,
   );
 
+  // trash_retention_days is optional — empty/0 means disabled.
+  const rawTrash = valueWithFallback("trash_retention_days", dbMap);
+  const trashRetentionDays = rawTrash
+    ? Math.max(1, Number.parseInt(rawTrash, 10) || 0)
+    : 0;
+
   return {
     stalePreviewNodeDays,
+    trashRetentionDays, // 0 = feature disabled
   };
 }
 
