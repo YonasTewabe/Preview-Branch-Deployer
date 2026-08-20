@@ -113,61 +113,27 @@ const UserFormModal = ({
           </Row>
 
           <Row gutter={16}>
-            <Col xs={24} sm={12}>
+            <Col span={24}>
               <Form.Item
-                name="first_name"
+                name="name"
                 label={
                   <span className="text-gray-700 font-medium">
-                    First Name
+                    Name
                   </span>
                 }
                 rules={[
                   { 
                     required: true, 
-                    message: 'Please enter the first name' 
+                    message: 'Please enter the name' 
                   },
                   { 
                     min: 2, 
-                    message: 'First name must be at least 2 characters' 
+                    message: 'Name must be at least 2 characters' 
                   },
-                  {
-                    pattern: /^[a-zA-Z\s]+$/,
-                    message: 'First name can only contain letters and spaces'
-                  }
                 ]}
               >
                 <Input
-                  placeholder="Enter first name"
-                  size="large"
-                  className="rounded-lg"
-                />
-              </Form.Item>
-            </Col>
-            <Col xs={24} sm={12}>
-              <Form.Item
-                name="last_name"
-                label={
-                  <span className="text-gray-700 font-medium">
-                    Last Name
-                  </span>
-                }
-                rules={[
-                  { 
-                    required: true, 
-                    message: 'Please enter the last name' 
-                  },
-                  { 
-                    min: 2, 
-                    message: 'Last name must be at least 2 characters' 
-                  },
-                  {
-                    pattern: /^[a-zA-Z\s]+$/,
-                    message: 'Last name can only contain letters and spaces'
-                  }
-                ]}
-              >
-                <Input
-                  placeholder="Enter last name"
+                  placeholder="Enter full name"
                   size="large"
                   className="rounded-lg"
                 />

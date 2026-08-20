@@ -28,8 +28,7 @@ const createUser = async () => {
     const user = await User.create({
       username: "your_username",
       email: "your_email@example.com",
-      first_name: "your_first_name",
-      last_name: "your_last_name",
+      name: "Your Name",
       password: "your_password", // Will be automatically hashed by the model hook
       role: "user", // Default role
       status: "active",
@@ -38,7 +37,7 @@ const createUser = async () => {
     console.warn("✅ User created successfully!");
     console.warn("User details:");
     console.warn(`  ID: ${user.id}`);
-    console.warn(`  Name: ${user.first_name} ${user.last_name}`);
+    console.warn(`  Name: ${user.name}`);
     console.warn(`  Email: ${user.email}`);
     console.warn(`  Username: ${user.username}`);
     console.warn(`  Role: ${user.role}`);

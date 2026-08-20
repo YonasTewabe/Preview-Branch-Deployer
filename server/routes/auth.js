@@ -38,7 +38,7 @@ router.post("/login", async (req, res) => {
           { email: username.toLowerCase() }
         ]
       },
-      attributes: ['id', 'username', 'email', 'first_name', 'last_name', 'role', 'status', 'password', 'last_login']
+      attributes: ['id', 'username', 'email', 'name', 'role', 'status', 'password', 'last_login']
     });
 
     if (!user) {
@@ -64,8 +64,7 @@ router.post("/login", async (req, res) => {
       id: user.id,
       username: user.username,
       email: user.email,
-      first_name: user.first_name,
-      last_name: user.last_name,
+      name: user.name,
       role: user.role,
       status: user.status,
       last_login: user.last_login,
@@ -119,7 +118,7 @@ router.get("/me", async (req, res) => {
       return res.status(401).json({ error: "Invalid token" });
     }
     const user = await User.findByPk(userId, {
-      attributes: ['id', 'username', 'email', 'first_name', 'last_name', 'role', 'status', 'last_login']
+      attributes: ['id', 'username', 'email', 'name', 'role', 'status', 'last_login']
     });
 
     if (!user || user.status !== 'active') {
@@ -160,7 +159,7 @@ router.post("/forgot-password",
       // Check if user exists (but don't reveal this information)
       const user = await User.findOne({ 
         where: { email: email.toLowerCase() },
-        attributes: ['id', 'email', 'first_name', 'status']
+        attributes: ['id', 'email', 'name', 'status']
       });
 
       // Only proceed if user exists and is active

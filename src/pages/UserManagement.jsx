@@ -51,7 +51,7 @@ const UserManagement = () => {
     const q = searchText.trim().toLowerCase();
     if (!q) return allUsers;
     return allUsers.filter((u) => {
-      const name = `${u.first_name ?? ""} ${u.last_name ?? ""}`.toLowerCase();
+      const name = (u.name ?? "").toLowerCase();
       return (
         name.includes(q) ||
         (u.username && String(u.username).toLowerCase().includes(q)) ||
@@ -149,16 +149,12 @@ const UserManagement = () => {
       ),
     },
     {
-      title: "Full Name",
-      key: "fullName",
-      sorter: (a, b) =>
-        `${a.first_name} ${a.last_name}`.localeCompare(
-          `${b.first_name} ${b.last_name}`,
-        ),
-      render: (_, record) => (
-        <span className="font-medium">
-          {`${record.first_name} ${record.last_name}`}
-        </span>
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      sorter: (a, b) => (a.name ?? "").localeCompare(b.name ?? ""),
+      render: (name) => (
+        <span className="font-medium">{name}</span>
       ),
     },
     {

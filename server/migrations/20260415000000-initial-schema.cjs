@@ -10,9 +10,7 @@ module.exports = {
         primaryKey: true,
         defaultValue: Sequelize.UUIDV4,
       },
-      first_name: { type: Sequelize.STRING(100), allowNull: false },
-      last_name: { type: Sequelize.STRING(100), allowNull: false },
-      email: { type: Sequelize.STRING(255), allowNull: false, unique: true },
+      name: { type: Sequelize.STRING(200), allowNull: false },      email: { type: Sequelize.STRING(255), allowNull: false, unique: true },
       username: { type: Sequelize.STRING(255), allowNull: true },
       password: { type: Sequelize.STRING(255), allowNull: false },
       role: {

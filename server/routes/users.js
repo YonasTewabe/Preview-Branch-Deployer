@@ -44,7 +44,7 @@ router.get("/:id", authenticateToken, async (req, res) => {
 // POST /api/users - Create a new user
 router.post("/", authenticateToken, isAdmin, async (req, res) => {
   try {
-    const {email, first_name, last_name, role } = req.body;
+    const { email, name, role } = req.body;
     if (role && role !== 'admin' && role !== 'user') {
       return res.status(400).json({ error: "Invalid role. Must be 'admin' or 'user'" });
     }
@@ -61,8 +61,7 @@ router.post("/", authenticateToken, isAdmin, async (req, res) => {
     const user = await User.create({
       username,
       email,
-      first_name,
-      last_name,
+      name,
       role: role || "user",
       status: 'active', // Default status for new users
       password: hashedPassword,
@@ -102,7 +101,7 @@ router.post("/", authenticateToken, isAdmin, async (req, res) => {
 // PUT /api/users/:id - Update a user
 router.put("/:id", authenticateToken, async (req, res) => {
   try {
-    const { username, email, first_name, last_name, role, status } = req.body;
+    const { username, email, name, role, status } = req.body;
     
     const user = await User.findByPk(req.params.id);
     if (!user) {
@@ -116,8 +115,7 @@ router.put("/:id", authenticateToken, async (req, res) => {
     const updateData = {
       username,
       email,
-      first_name,
-      last_name,
+      name,
     };
 
     if (req.user.role === 'admin') {

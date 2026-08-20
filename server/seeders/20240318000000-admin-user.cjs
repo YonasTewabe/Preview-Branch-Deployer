@@ -22,8 +22,7 @@ module.exports = {
       await queryInterface.bulkInsert('users', [{
         id: uuidv4(),
         username: 'admin',
-        first_name: 'admin',
-        last_name: 'admin',
+        name: 'Admin',
         email: 'admin@example.com',
         password: hashedPassword,
         role: 'admin',
@@ -49,8 +48,7 @@ module.exports = {
       await queryInterface.bulkInsert('users', [{
         id: uuidv4(),
         username: 'user',
-        first_name: 'user',
-        last_name: 'user',
+        name: 'User',
         email: 'user@example.com',
         password: hashedPassword,
         role: 'user',

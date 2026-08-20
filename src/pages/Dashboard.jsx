@@ -186,7 +186,7 @@ const Dashboard = () => {
           className="mb-1 block text-base font-bold sm:text-lg"
           style={{ color: "var(--app-text)" }}
         >
-          Welcome back, {user?.first_name}
+          Welcome back, {user?.name}
         </Text>
       </div>
 

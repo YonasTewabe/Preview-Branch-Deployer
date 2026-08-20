@@ -17,8 +17,7 @@ router.post("/test", async (req, res) => {
     const testUser = {
       id: 999,
       email: email,
-      first_name: "Test",
-      last_name: "User",
+      name: "Test User",
       username: "testuser",
       role: "Viewer"
     };

@@ -27,8 +27,7 @@ const initializeDatabase = async () => {
       await User.create({
         username: 'admin',
         email: 'admin@example.com',
-        first_name: 'admin',
-        last_name: 'admin',
+        name: 'Admin',
         role: 'admin',
         status: 'active',
         password: '%TGBnhy6'
@@ -50,8 +49,7 @@ const initializeDatabase = async () => {
       await User.create({
         username: 'user',
         email: 'user@example.com',
-        first_name: 'user',
-        last_name: 'user',
+        name: 'User',
         role: 'user',
         status: 'active',
         password: '%TGBnhy6'

@@ -283,7 +283,7 @@ class EmailService {
           
           <div class="content">
             <p class="welcome-text">
-              Hi <strong>${user.first_name || 'there'}</strong>,
+              Hi <strong>${user.name}</strong>,
             </p>
             
             <p>
@@ -294,7 +294,7 @@ class EmailService {
                 <h3>Your Account Details</h3>
                 <div class="info-item">
                   <span class="info-label">Name:</span>
-                  ${user.first_name} ${user.last_name}
+                  ${user.name}
                 </div>
                 <div class="info-item">
                   <span class="info-label">Email:</span>
@@ -371,12 +371,12 @@ class EmailService {
     return `
 Welcome to Preview Builder!
 
-Hi ${user.first_name || 'there'},
+Hi ${user.name || 'there'},
 
 Welcome to Preview Builder! Your account has been successfully created and you now have access to our platform.
 
 Your Account Details:
-- Name: ${user.first_name} ${user.last_name}
+- Name: ${user.name}
 - Email: ${user.email}
 - Username: ${user.username || 'Not set'}
 - Role: ${user.role}
@@ -427,7 +427,7 @@ This email was sent to ${user.email} because an account was created for you on P
         to: user.email,
         subject: 'Password Reset Request - Preview Builder',
         html: this.generatePasswordResetTemplate(user, resetUrl),
-        text: `Password Reset Request\n\nHi ${user.first_name},\n\nYou requested a password reset. Click the link below to reset your password:\n${resetUrl}\n\nIf you didn't request this, please ignore this email.\n\nBest regards,\nThe Preview Builder Team`,
+        text: `Password Reset Request\n\nHi ${user.name || 'there'},\n\nYou requested a password reset. Click the link below to reset your password:\n${resetUrl}\n\nIf you didn't request this, please ignore this email.\n\nBest regards,\nThe Preview Builder Team`,
       };
 
       const info = await this.transporter.sendMail(mailOptions);
@@ -472,7 +472,7 @@ This email was sent to ${user.email} because an account was created for you on P
           <div class="header">
             <h1>Password Reset Request</h1>
           </div>
-          <p>Hi ${user.first_name},</p>
+          <p>Hi ${user.name || 'there'},</p>
           <p>You requested a password reset for your Preview Builder account.</p>
           <p style="text-align: center; margin: 30px 0;">
             <a href="${resetUrl}" class="button">Reset Password</a>

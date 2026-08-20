@@ -28,12 +28,8 @@ User.init(
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
     },
-    first_name: {
-      type: DataTypes.STRING(100),
-      allowNull: false,
-    },
-    last_name: {
-      type: DataTypes.STRING(100),
+    name: {
+      type: DataTypes.STRING(200),
       allowNull: false,
     },
     email: {

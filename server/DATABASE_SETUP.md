@@ -48,8 +48,7 @@ This will:
 - `id` (Primary Key)
 - `username` (Unique)
 - `email` (Unique)
-- `first_name`
-- `last_name`
+- `name`
 - `role` (admin, developer, viewer)
 - `status` (active, inactive)
 - `last_login`
@@ -155,8 +154,7 @@ POST /api/users
 {
   "username": "john_doe",
   "email": "john@example.com",
-  "first_name": "John",
-  "last_name": "Doe",
+  "name": "John Doe",
   "role": "developer"
 }
 ```

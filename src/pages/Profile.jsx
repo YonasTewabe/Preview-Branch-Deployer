@@ -17,8 +17,7 @@ const Profile = () => {
     infoForm.setFieldsValue({
       username: user.username ?? "",
       email: user.email ?? "",
-      first_name: user.first_name ?? "",
-      last_name: user.last_name ?? "",
+      name: user.name ?? "",
     });
   }, [user, infoForm]);
 
@@ -29,8 +28,7 @@ const Profile = () => {
         id: user.id,
         username: values.username,
         email: values.email,
-        first_name: values.first_name,
-        last_name: values.last_name,
+        name: values.name,
         role: user.role,
         status: user.status ?? "active",
       },
@@ -85,16 +83,9 @@ const Profile = () => {
             <Input size="large" />
           </Form.Item>
           <Form.Item
-            label="First name"
-            name="first_name"
-            rules={[{ required: true, message: "Please enter your first name" }]}
-          >
-            <Input size="large" />
-          </Form.Item>
-          <Form.Item
-            label="Last name"
-            name="last_name"
-            rules={[{ required: true, message: "Please enter your last name" }]}
+            label="Name"
+            name="name"
+            rules={[{ required: true, message: "Please enter your name" }]}
           >
             <Input size="large" />
           </Form.Item>

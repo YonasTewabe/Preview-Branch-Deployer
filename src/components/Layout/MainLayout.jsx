@@ -148,7 +148,7 @@ const MainLayout = ({ children }) => {
                     style={{ backgroundColor: "var(--app-primary)" }}
                   />
                   <span className="ml-2 hidden min-w-0 truncate text-sm font-medium sm:inline">
-                    {user?.first_name || user?.username || "Account"}
+                    {user?.name || user?.username || "Account"}
                   </span>
                 </Button>
               </Dropdown>
