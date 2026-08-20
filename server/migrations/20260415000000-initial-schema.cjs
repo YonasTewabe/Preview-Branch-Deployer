@@ -10,7 +10,8 @@ module.exports = {
         primaryKey: true,
         defaultValue: Sequelize.UUIDV4,
       },
-      name: { type: Sequelize.STRING(200), allowNull: false },      email: { type: Sequelize.STRING(255), allowNull: false, unique: true },
+      name: { type: Sequelize.STRING(200), allowNull: false },
+      email: { type: Sequelize.STRING(255), allowNull: false, unique: true },
       password: { type: Sequelize.STRING(255), allowNull: false },
       role: {
         type: Sequelize.ENUM("admin", "user", "manager"),
@@ -21,16 +22,6 @@ module.exports = {
         type: Sequelize.ENUM("active", "inactive", "suspended"),
         allowNull: false,
         defaultValue: "active",
-      },
-      last_login: { type: Sequelize.DATE, allowNull: true },
-      email_verified: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
-      email_verification_token: {
-        type: Sequelize.STRING(255),
-        allowNull: true,
       },
       reset_password_token: { type: Sequelize.STRING(255), allowNull: true },
       reset_password_expires: { type: Sequelize.DATE, allowNull: true },
@@ -436,20 +427,22 @@ module.exports = {
     await queryInterface.dropTable("projects");
     await queryInterface.dropTable("users");
 
-    if (queryInterface.sequelize.options.dialect === 'postgres') {
+    if (queryInterface.sequelize.options.dialect === "postgres") {
       const enums = [
-        'enum_users_role',
-        'enum_users_status',
-        'enum_projects_status',
-        'enum_projects_tag',
-        'enum_nodes_role',
-        'enum_nodes_type',
-        'enum_nodes_build_status',
-        'enum_nodes_status',
-        'enum_nodes_environment'
+        "enum_users_role",
+        "enum_users_status",
+        "enum_projects_status",
+        "enum_projects_tag",
+        "enum_nodes_role",
+        "enum_nodes_type",
+        "enum_nodes_build_status",
+        "enum_nodes_status",
+        "enum_nodes_environment",
       ];
       for (const enumType of enums) {
-        await queryInterface.sequelize.query(`DROP TYPE IF EXISTS "${enumType}";`);
+        await queryInterface.sequelize.query(
+          `DROP TYPE IF EXISTS "${enumType}";`,
+        );
       }
     }
   },

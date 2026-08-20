@@ -52,18 +52,6 @@ User.init(
       type: DataTypes.ENUM('active', 'inactive', 'suspended'),
       defaultValue: 'active',
     },
-    last_login: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
-    email_verified: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    email_verification_token: {
-      type: DataTypes.STRING(255),
-      allowNull: true,
-    },
     reset_password_token: {
       type: DataTypes.STRING(255),
       allowNull: true,
