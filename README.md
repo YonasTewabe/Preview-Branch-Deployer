@@ -52,9 +52,9 @@ Preview Branch Deployer helps teams:
 
 - Node.js 18+ (recommended)
 - npm
-- MySQL database (for backend persistence)
+- Postgres database
 - Jenkins server and jobs (for preview build features)
-- SMTP credentials (for password reset emails)
+- SMTP credentials
 
 ## Setup
 
