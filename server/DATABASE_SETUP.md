@@ -50,7 +50,7 @@ This will:
 - `name`
 - `role` (admin, developer, viewer)
 - `status` (active, inactive)
-- `last_login`
+- `must_change_password`
 - `password`
 - `created_at`, `updated_at`
 

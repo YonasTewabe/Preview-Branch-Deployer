@@ -31,7 +31,7 @@ router.post("/login", async (req, res) => {
     // Find user by email only
     const user = await User.findOne({ 
       where: { email: email.toLowerCase() },
-      attributes: ['id', 'email', 'name', 'role', 'status', 'password', 'last_login', 'must_change_password']
+      attributes: ['id', 'email', 'name', 'role', 'status', 'password', 'must_change_password']
     });
 
     if (!user) {
@@ -49,9 +49,6 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Invalid email or password" });
     }
 
-    // Update last login
-    await user.update({ last_login: new Date() });
-
     // Create response without password
     const userResponse = {
       id: user.id,
@@ -59,7 +56,6 @@ router.post("/login", async (req, res) => {
       name: user.name,
       role: user.role,
       status: user.status,
-      last_login: user.last_login,
       must_change_password: user.must_change_password,
     };
 
@@ -111,7 +107,7 @@ router.get("/me", async (req, res) => {
       return res.status(401).json({ error: "Invalid token" });
     }
     const user = await User.findByPk(userId, {
-      attributes: ['id', 'email', 'name', 'role', 'status', 'last_login', 'must_change_password']
+      attributes: ['id', 'email', 'name', 'role', 'status', 'must_change_password']
     });
 
     if (!user || user.status !== 'active') {

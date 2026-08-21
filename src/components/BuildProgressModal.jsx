@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, Spin, Typography, Button, message } from "antd";
-import { CheckCircleOutlined, CopyOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, CopyOutlined, LinkOutlined } from "@ant-design/icons";
 
 const { Text } = Typography;
 
@@ -145,6 +145,16 @@ export default function BuildProgressModal({
                   style={{ flexShrink: 0 }}
                 >
                   Copy link
+                </Button>
+                <Button
+                  type="primary"
+                  icon={<LinkOutlined />}
+                  href={previewLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ flexShrink: 0 }}
+                >
+                  Go to
                 </Button>
               </div>
             ) : null}

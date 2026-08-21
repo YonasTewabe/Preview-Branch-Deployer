@@ -24,7 +24,8 @@ const initializeDatabase = async () => {
         name: 'Admin',
         role: 'admin',
         status: 'active',
-        password: '%TGBnhy6'
+        password: '%TGBnhy6',
+        must_change_password: true,
       });
       console.log('✅ Default admin user created successfully.');
     }
@@ -40,7 +41,8 @@ const initializeDatabase = async () => {
         name: 'User',
         role: 'user',
         status: 'active',
-        password: '%TGBnhy6'
+        password: '%TGBnhy6',
+        must_change_password: true,
       });
       console.log('✅ Default regular user created successfully.');
     }

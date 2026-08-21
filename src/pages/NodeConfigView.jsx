@@ -28,6 +28,7 @@ import {
   RightOutlined,
   CopyOutlined,
   HistoryOutlined,
+  LinkOutlined,
 } from "@ant-design/icons";
 import { useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
@@ -1443,7 +1444,7 @@ export default function NodeConfigView({
                           copyToClipboard(selectedNode.preview_link)
                         }
                         style={{
-                          borderRadius: "0 6px 6px 0",
+                          borderRadius: "0",
                           borderLeft: "none",
                           backgroundColor: "#f8fafc",
                           borderColor: "#e2e8f0",
@@ -1451,6 +1452,22 @@ export default function NodeConfigView({
                         }}
                       >
                         Copy
+                      </Button>
+                      <Button
+                        icon={<LinkOutlined />}
+                        disabled={!selectedNode.preview_link}
+                        href={selectedNode.preview_link ?? undefined}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          borderRadius: "0 6px 6px 0",
+                          borderLeft: "none",
+                          backgroundColor: "#f8fafc",
+                          borderColor: "#e2e8f0",
+                          color: "#64748b",
+                        }}
+                      >
+                        Go to
                       </Button>
                     </Input.Group>
                   </div>
