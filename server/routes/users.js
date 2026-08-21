@@ -63,6 +63,7 @@ router.post("/", authenticateToken, isAdmin, async (req, res) => {
       role: role || "user",
       status: 'active',
       password: hashedPassword,
+      must_change_password: true,
     });
 
     // Return user without password hash

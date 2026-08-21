@@ -31,7 +31,7 @@ router.post("/login", async (req, res) => {
     // Find user by email only
     const user = await User.findOne({ 
       where: { email: email.toLowerCase() },
-      attributes: ['id', 'email', 'name', 'role', 'status', 'password', 'last_login']
+      attributes: ['id', 'email', 'name', 'role', 'status', 'password', 'last_login', 'must_change_password']
     });
 
     if (!user) {
@@ -60,6 +60,7 @@ router.post("/login", async (req, res) => {
       role: user.role,
       status: user.status,
       last_login: user.last_login,
+      must_change_password: user.must_change_password,
     };
 
     // In a real application, you would generate a JWT token here
@@ -110,7 +111,7 @@ router.get("/me", async (req, res) => {
       return res.status(401).json({ error: "Invalid token" });
     }
     const user = await User.findByPk(userId, {
-      attributes: ['id', 'email', 'name', 'role', 'status', 'last_login']
+      attributes: ['id', 'email', 'name', 'role', 'status', 'last_login', 'must_change_password']
     });
 
     if (!user || user.status !== 'active') {
@@ -265,5 +266,62 @@ router.post("/reset-password",
     }
   }
 );
+
+// POST /api/auth/change-password - Change password (used on first login)
+router.post("/change-password", async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+      return res.status(401).json({ error: "Authentication required" });
+    }
+
+    const token = authHeader.replace("Bearer ", "");
+    const tokenParts = token.split("_");
+    if (tokenParts.length !== 3 || tokenParts[0] !== "token") {
+      return res.status(401).json({ error: "Invalid token" });
+    }
+
+    const userId = String(tokenParts[1] ?? "").trim();
+    if (!userId) {
+      return res.status(401).json({ error: "Invalid token" });
+    }
+
+    const user = await User.findByPk(userId);
+    if (!user || user.status !== "active") {
+      return res.status(401).json({ error: "User not found or inactive" });
+    }
+
+    const { newPassword, newPasswordConfirmation } = req.body;
+
+    if (!newPassword || !newPasswordConfirmation) {
+      return res.status(400).json({ error: "New password and confirmation are required" });
+    }
+
+    if (newPassword !== newPasswordConfirmation) {
+      return res.status(400).json({ error: "Passwords do not match" });
+    }
+
+    if (newPassword.length < 8) {
+      return res.status(400).json({ error: "Password must be at least 8 characters long" });
+    }
+
+    const complexityCheck = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(newPassword);
+    if (!complexityCheck) {
+      return res.status(400).json({
+        error: "Password must contain at least one lowercase letter, one uppercase letter, and one number",
+      });
+    }
+
+    await user.update({
+      password: newPassword,
+      must_change_password: false,
+    });
+
+    res.json({ message: "Password changed successfully" });
+  } catch (error) {
+    console.error("Change password error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 export default router;

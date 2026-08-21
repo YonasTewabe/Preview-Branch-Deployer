@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { Spin } from 'antd';
 
 const ProtectedRoute = ({ children, adminOnly = false }) => {
-  const { loading, isAuthenticated, isAdmin } = useAuth();
+  const { loading, isAuthenticated, isAdmin, user } = useAuth();
 
   if (loading) {
     return (
@@ -15,6 +15,10 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
 
   if (!isAuthenticated()) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (user?.must_change_password) {
+    return <Navigate to="/change-password" replace />;
   }
 
   if (adminOnly && !isAdmin()) {

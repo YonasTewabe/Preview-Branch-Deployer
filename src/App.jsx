@@ -11,6 +11,7 @@ import NodeConfigPage from './pages/NodeConfigPage';
 import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
+import ChangePassword from './pages/ChangePassword';
 import UserManagement from './pages/UserManagement';
 import Profile from './pages/Profile';
 import MyProjects from './components/Projects/MyProjects';
@@ -42,6 +43,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/change-password" element={<ChangePassword />} />
               <Route 
                 path="/" 
                 element={
